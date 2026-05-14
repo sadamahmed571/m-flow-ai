@@ -2,6 +2,8 @@ import { renderSocialRadar, renderPlatforms, toggleLinkInput, handlePlatformChec
 import { renderCalendar, changeMonth, toggleView, openAddEventModal, closeEventModal, saveEvent, deleteEvent, selectDay, closeDayDetailsModal, renderEvents } from './calendar.js';
 import { renderVault } from './vault.js';
 import { showToast, createConfetti } from './utils.js';
+import { renderIdeas, generateIdea, deleteIdea } from './ideas.js';
+import { renderBrainStatus, saveBrainConfig } from './brain.js';
 
 function init() {
     renderSocialRadar();
@@ -9,6 +11,8 @@ function init() {
     renderPlatforms();
     renderVault();
     renderEvents();
+    renderIdeas();
+    renderBrainStatus();
 
     const captionArea = document.getElementById('postCaption');
     if (captionArea) {
@@ -40,6 +44,29 @@ window.copyCaption = () => {
 window.downloadMedia = () => {
     showToast('جاري تنزيل الوسائط...', 'info');
     setTimeout(() => showToast('تم التنزيل بنجاح', 'success'), 1000);
+};
+
+window.generateIdea = generateIdea;
+window.deleteIdea = deleteIdea;
+window.saveBrainConfig = saveBrainConfig;
+
+window.enhanceCaption = () => {
+    const caption = document.getElementById('postCaption');
+    if (!caption.value.trim()) {
+        showToast('يرجى إدخال نص أولاً لتحسينه', 'error');
+        return;
+    }
+    showToast('جاري تحسين النص باستخدام الذكاء الاصطناعي...', 'info');
+
+    // Simulate AI improvement
+    setTimeout(() => {
+        const originalText = caption.value;
+        caption.value = "✨ نسخة محسنة بالذكاء الاصطناعي ✨\n\n" + originalText + "\n\n🚀 تم تحسين المحتوى لجذب تفاعل أكبر!";
+        caption.style.height = '';
+        caption.style.height = caption.scrollHeight + 'px';
+        showToast('تم تحسين النص بنجاح!', 'success');
+        createConfetti();
+    }, 1500);
 };
 
 document.addEventListener('DOMContentLoaded', init);

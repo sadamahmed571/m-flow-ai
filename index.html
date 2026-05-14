@@ -71,6 +71,10 @@
 جرب الآن: tawteen360.sa
 #تطبيق360 #توطين #إدارة_الشحن</textarea>
                     <div class="caption-actions">
+                        <button class="btn-ai-magic" onclick="enhanceCaption()" title="تحسين بواسطة الذكاء الاصطناعي">
+                            <i data-lucide="wand-2"></i>
+                            تحسين بالذكاء الاصطناعي
+                        </button>
                         <button class="btn-copy" onclick="copyCaption()">
                             <i data-lucide="copy"></i>
                           نسخ المنشور
@@ -158,6 +162,31 @@
         </h3>
         <div class="social-radar" id="socialRadar"></div>
 
+        <!-- Marketing Ideas Lab -->
+        <div class="ideas-lab-section animate-in delay-5">
+            <h3 class="section-title2">
+                <i data-lucide="lightbulb"></i>
+                مختبر أفكار المحتوى
+            </h3>
+            <div class="ideas-container">
+                <div class="ideas-generator">
+                    <div class="form-group">
+                        <label class="form-label">عن ماذا تريد التحدث؟</label>
+                        <div class="generator-input-wrapper">
+                            <input type="text" id="ideaTopic" class="form-input" placeholder="مثال: ميزة جديدة، عرض خاص، نصيحة تقنية...">
+                            <button class="btn-generate" onclick="generateIdea()">
+                                <i data-lucide="sparkles"></i>
+                                توليد فكرة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ideas-grid" id="ideasGrid">
+                    <!-- Ideas will be injected here -->
+                </div>
+            </div>
+        </div>
+
         <!-- Media Vault -->
         <div class="vault-section animate-in delay-5">
             <h3 class="section-title2">
@@ -165,6 +194,35 @@
                مخزن المحتوى و الوسائط
             </h3>
             <div class="vault-grid" id="vaultGrid"></div>
+        </div>
+
+        <!-- Assistant Brain Section -->
+        <div class="brain-section animate-in delay-5">
+            <h3 class="section-title2">
+                <i data-lucide="brain-circuit"></i>
+                عقل المساعد الذكي
+            </h3>
+            <div class="brain-container">
+                <div class="brain-config">
+                    <div class="form-group">
+                        <label class="form-label">تخصيص هوية المساعد</label>
+                        <textarea id="brainInstructions" class="form-input" placeholder="أدخل تعليمات خاصة للمساعد (مثلاً: تحدث بنبرة رسمية، ركز على فوائد الاستدامة...)"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">تلقيم وثيقة المشروع الشاملة</label>
+                        <div class="doc-ingestion">
+                            <textarea id="brainDoc" class="form-input" placeholder="الصق هنا وثيقة المشروع الشاملة ليحتفظ بها المساعد في ذاكرته..."></textarea>
+                        </div>
+                    </div>
+                    <button class="btn-save-brain" onclick="saveBrainConfig()">
+                        <i data-lucide="save"></i>
+                        حفظ الإعدادات وتحديث الذاكرة
+                    </button>
+                </div>
+                <div class="brain-status" id="brainStatus">
+                    <!-- Status will be updated here -->
+                </div>
+            </div>
         </div>
     </main>
 </div>
