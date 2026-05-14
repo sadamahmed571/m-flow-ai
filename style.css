@@ -891,9 +891,10 @@
             display: flex;
             justify-content: flex-end;
             margin-top: 6px;
+            gap: 8px;
         }
 
-        .btn-copy {
+        .btn-copy, .btn-ai-magic {
             padding: 6px 12px;
             border: 1px solid var(--border);
             background: var(--surface);
@@ -912,6 +913,15 @@
             background: var(--secondary);
             color: white;
             border-color: var(--secondary);
+        }
+        .btn-ai-magic {
+            border-color: #8B5CF6;
+            color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.05);
+        }
+        .btn-ai-magic:hover {
+            background: #8B5CF6;
+            color: white;
         }
 
         .platforms-grid {
@@ -1163,6 +1173,181 @@
             border-color: var(--primary);
             transform: translateY(-1px);
         }
+
+/* Ideas Lab Styles */
+.ideas-lab-section {
+    margin-bottom: 48px;
+}
+.ideas-container {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+.generator-input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+.btn-generate {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-xs);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+.btn-generate:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+.ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+.idea-card {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: var(--transition);
+}
+.idea-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+.idea-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--primary-glow);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+.idea-text {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+.idea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.idea-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.btn-delete-idea {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.btn-delete-idea:hover {
+    color: #c0392b;
+}
+.no-ideas {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+}
+
+/* Assistant Brain Styles */
+.brain-section {
+    margin-bottom: 48px;
+}
+.brain-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+.brain-config textarea {
+    min-height: 100px;
+}
+.btn-save-brain {
+    width: 100%;
+    padding: 12px;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-xs);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.btn-save-brain:hover {
+    filter: brightness(1.1);
+}
+.status-card {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    border: 1px solid var(--border);
+    height: 100%;
+}
+.status-card.active {
+    border-color: var(--secondary);
+    background: var(--secondary-glow);
+}
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+.status-card.active .status-header {
+    color: var(--secondary);
+}
+.status-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+.status-info {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+.status-info p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width: 768px) {
+    .brain-container {
+        grid-template-columns: 1fr;
+    }
+}
 
         /* Toast */
         .toast-container {
