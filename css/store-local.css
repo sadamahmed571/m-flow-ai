@@ -1,35 +1,341 @@
+:root {
+    /* القيم الأصلية */
+    --primary: #1e3a5f;
+    --primary-light: #2c5282;
+    --primary-dark: #152a45;
+    --primary-glow: rgba(30, 58, 95, 0.12);
+    --secondary: #2d6a4f;
+    --secondary-light: #40916c;
+    --secondary-glow: rgba(45, 106, 79, 0.12);
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-light: #f8fafc;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --blue-dark: #30629e;      
+    --red-dark: #af2c2c;       
+    --green-dark: #228046;     
+    --yellow-dark: #a8743a;     
+    
+    /* نسخ شفافة (Glow) للألوان الجديدة للاستخدام في الخلفيات البسيطة */
+    --blue-glow: rgba(29, 78, 137, 0.1);
+    --red-glow: rgba(153, 27, 27, 0.1);
+    --green-glow: rgba(22, 101, 52, 0.1);
+    --yellow-glow: rgba(133, 77, 14, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    padding-bottom: 70px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
+.app-container { display: flex; min-height: 100vh; }
+
+.main-content {
+    flex: 1;
+    padding: 24px;
+    max-width: 100%;
+    width: 100%;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.page-s {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-xs);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--text);
+}
+
+.page-title-icon {
+    width: 38px;
+    height: 38px;
+    color: var(--primary);
+}
+
+.page-title h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+
+.page-title p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Media Vault */
+.vault-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+	
+}
+
+.vault-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--card-accent), transparent);
+    opacity: 0.06;
+    border-bottom-left-radius: 100%;
+}
+
+.vault-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--card-accent);
+}
+
+.vault-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.vault-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-xs);
+    background: var(--card-accent-bg);
+    color: var(--card-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.vault-title-group { flex: 1; }
+
+.vault-title {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 2px;
+    color: var(--text);
+}
+
+.vault-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.form-group { margin-bottom: 14px; }
+
+/* Toast */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--surface);
+    color: var(--text);
+    padding: 14px 18px;
+    border-radius: var(--radius-xs);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 280px;
+    border-right: 4px solid var(--toast-color);
+    animation: slideIn 0.4s ease, fadeOut 0.4s ease 3.6s forwards;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(-20px); }
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    z-index: 999;
+    animation: confettiFall 1s ease-out forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100px) rotate(720deg); opacity: 0; }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { animation: fadeInUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; }
+.delay-8 { animation-delay: 0.8s; }
+.delay-9 { animation-delay: 0.9s; }
+.delay-10 { animation-delay: 1.0s; }
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        padding-bottom: 60px;
+    }
+    .lucide { width: 16px; height: 16px; }
+    .main-content { padding: 5px; }
+
+    .page-title h2 { font-size: 16px; font-weight: 800; }
+    .page-title p { font-size: 12px; }
+
+    .vault-card { padding: 15px; }
+    .vault-icon { width: 38px; height: 38px; font-size: 20px; }
+    .vault-title { font-size: 14px; }
+    .vault-meta { font-size: 11px; }
+}
 
 
-        .page-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .back-button {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-xs);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text);
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateX(2px);
-        }
+       
         .store-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 0 auto;
+			padding:10px;
+        }
+
+        .post-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .post-card:hover {
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .post-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .post-card-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .post-card-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-card-body {
+            font-size: 13px;
+            color: var(--text);
+            white-space: pre-wrap;
+            background: var(--bg);
+            padding: 12px;
+            border-radius: var(--radius-xs);
+            border: 1px solid var(--border);
+        }
+
+        .post-card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .post-card-meta-item {
+            background: var(--bg);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         /* New Extracted Styles */
@@ -43,7 +349,7 @@
         .store-action-btn {
             padding: 10px 16px;
             border-radius: var(--radius-xs);
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -75,7 +381,7 @@
         }
 		.vault-items-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 16px;
         }
@@ -116,44 +422,112 @@
         }
 
         .modal-form-label {
-            display: block;
+            display: flex;
+            align-items: center;
             font-size: 13px;
             font-weight: 700;
             color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
-        .modal-radio-group {
-            display: flex;
-            gap: 16px;
-            background: var(--bg);
-            padding: 10px;
-            border-radius: var(--radius-xs);
-            border: 1px solid var(--border);
+        .label-icon {
+            width: 16px;
+            height: 16px;
+            margin-inline-end: 6px;
+            color: var(--primary);
         }
 
-        .modal-radio-grid {
+        .custom-radio-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .custom-radio-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            background: var(--bg);
-            padding: 12px;
-            border-radius: var(--radius-xs);
-            border: 1px solid var(--border);
         }
 
-        .modal-radio-label {
+        .custom-radio-label {
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .custom-radio-label input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .custom-radio-btn {
             display: flex;
             align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            background: var(--surface);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 700;
+            transition: var(--transition);
         }
 
-        .modal-radio-grid .modal-radio-label {
-            font-size: 13px;
-            font-weight: normal;
+        .custom-radio-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .custom-radio-label input[type="radio"]:checked + .custom-radio-btn {
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .custom-radio-label:hover .custom-radio-btn {
+            border-color: var(--primary);
+        }
+
+        .segmented-control {
+            display: flex;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            background: var(--border-light);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            margin: 0 24px 24px 24px;
+            max-width: 100%;
+            border: 1px solid var(--border);
+            overflow-x: auto; /* In case it gets too small */
+        }
+
+        .segmented-control .custom-radio-label {
+            flex: 1;
+            margin: 0;
+            min-width: max-content; /* Ensure it does not shrink too much */
+        }
+
+        .segmented-control .custom-radio-btn {
+            display: flex;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            border-radius: var(--radius-xs);
+            padding: 10px;
+            box-shadow: none;
+            white-space: nowrap;
+        }
+
+        .segmented-control input[type="radio"]:checked + .custom-radio-btn {
+            background: var(--surface);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
         }
 
         .modal-input {
@@ -161,7 +535,7 @@
             padding: 10px 14px;
             border: 1px solid var(--border);
             border-radius: var(--radius-xs);
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
             font-size: 14px;
             background: var(--bg);
             color: var(--text);
@@ -200,7 +574,7 @@
             color: white;
             border: none;
             border-radius: var(--radius-xs);
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
@@ -217,7 +591,7 @@
             color: var(--text-secondary);
             border: 1px solid var(--border);
             border-radius: var(--radius-xs);
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Noto Sans Arabic', sans-serif;
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
@@ -228,53 +602,169 @@
             color: #c0392b;
         }
 
+        /* =========================================
+           فئات مساعدة للتنسيقات المخصصة (Utility & Custom Classes)
+           تم استخراجها من الأنماط المضمنة في HTML
+           ========================================= */
+        .mb-0 { margin-bottom: 0; }
+        .mb-2 { margin-bottom: 6px; }
+        .mb-3 { margin-bottom: 12px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .d-none { display: none; }
+
+        .vault-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            min-width: 250px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 4px;
+        }
+
+        .vault-dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .vault-dropdown-item:last-child {
+            border-bottom: none;
+        }
+        .vault-dropdown-item:hover {
+            background: var(--bg);
+        }
+
+        /* منطقة النصوص المتعددة الأسطر */
+        .modal-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* أيقونة رفع الملفات */
+        .modal-upload-icon {
+            width: 36px;
+            height: 36px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        /* نص منطقة الرفع */
+        .modal-upload-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* اسم الملف المرفوع */
+        .modal-upload-filename {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ترويسة الحقول المرنة (Flex Header) */
+        .modal-flex-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 6px;
+        }
+
+        /* الشارات المستخدمة في العناوين (Badges) */
+        .modal-badge {
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 700;
+            background: var(--bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
         /* Mobile specific adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .store-action-btn {
-                padding: 6px 10px;
-                font-size: 11px;
+                padding: 4px 10px !important;
+                font-size: 11px !important;
             }
             .store-action-btn svg {
-                width: 16px;
-                height: 16px;
+                width: 14px;
+                height: 14px;
             }
 
             .modal-content {
-                padding: 16px;
+                padding: 14px;
                 width: 95%;
-                max-height: 85vh;
+                max-height: 90vh;
             }
             .modal-header {
-                font-size: 16px;
-                margin-bottom: 16px;
+                font-size: 15px;
+                margin-bottom: 14px;
             }
             .modal-form-label {
-                font-size: 12px;
+                font-size: 11px;
+                margin-bottom: 6px;
             }
-            .modal-radio-label {
-                font-size: 12px;
+            .vault-dropdown-menu {
+                min-width: 180px;
+                max-height: 150px;
             }
-            .modal-radio-grid {
-                grid-template-columns: 1fr;
+            .vault-dropdown-item {
+                padding: 8px;
             }
-            .modal-radio-grid .modal-radio-label {
-                font-size: 12px;
+            .custom-radio-btn {
+                padding: 8px;
+                font-size: 11px;
+                gap: 4px;
+            }
+            .custom-radio-btn i {
+                width: 14px;
+                height: 14px;
+            }
+            .custom-radio-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             .modal-input {
-                padding: 8px 12px;
-                font-size: 13px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            .modal-textarea {
+                min-height: 80px;
             }
             .modal-upload-area {
-                padding: 20px;
+                padding: 15px;
+            }
+            .modal-upload-icon {
+                width: 28px;
+                height: 28px;
+                margin-bottom: 6px;
+            }
+            .modal-upload-text {
+                font-size: 11px;
+            }
+            .modal-upload-filename {
+                font-size: 10px;
             }
             .modal-btn-save, .modal-btn-cancel {
-                padding: 10px;
-                font-size: 13px;
+                padding: 4px 12px !important;
+                font-size: 11px ;
+				 
             }
 
             .vault-items-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+                gap: 15px;
             }
             .item-name { font-size: 12px; }
             .item-meta-row { font-size: 10px; }
