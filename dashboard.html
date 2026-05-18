@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M FLOWᴬᴵ │ لوحة تحكم المشروع</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .campaign-split-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; margin-top: 20px; }
+        .ideas-part, .todo-part { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); }
+        .part-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--primary); }
+        
+        .todo-input-wrapper { display: flex; gap: 10px; margin-bottom: 20px; }
+        .btn-add-task { background: var(--primary); color: white; border: none; padding: 0 16px; border-radius: var(--radius-xs); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .btn-add-task:hover { filter: brightness(1.1); }
+        
+        .todo-filters { display: flex; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 12px; }
+        .todo-filter-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 13px; font-family: 'Noto Sans Arabic', sans-serif; font-weight: bold; transition: 0.3s; padding: 0; }
+        .todo-filter-btn.active { color: var(--primary); }
+        .todo-filter-btn:hover { color: var(--primary); }
+        
+        .todo-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
+        .todo-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--bg); border: 1px solid var(--border-light); border-radius: var(--radius-xs); transition: 0.3s; }
+        .todo-item.completed { opacity: 0.7; }
+        .todo-item.completed .todo-text { text-decoration: line-through; color: var(--text-muted); }
+        .todo-content { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .todo-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
+        .todo-text { font-size: 14px; color: var(--text); transition: 0.3s; }
+        .btn-delete-task { background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: 4px; transition: 0.3s; }
+        .btn-delete-task:hover { color: #ef4444; background: #fee2e2; }
+
+        @media (max-width: 768px) {
+            .campaign-split-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header animate-in">
+            <div class="page-title">
+                <h2> M FLOWᴬᴵ</h2>
+                <p>تطبيق تخزين ، متابعة ، ادارة الحملات التسويقية</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn-icon " title="الصفحة الرئيسية">
+                    <i data-lucide="home"></i>
+                </a>
+				 <a href="dashboard.html" class="btn-icon active" title="لوحة تحكم المشروع">
+                    <i data-lucide="GaugeCircle"></i>
+                </a>
+                <a href="store.html" class="btn-icon" title="مخزن المحتوى والوسائط">
+                    <i data-lucide="folder-open"></i>
+                </a>
+            </div>
+        </header>
+		
+		<div class="page-header animate-in">
+            <div   class="page-s">
+                <i data-lucide="KanbanSquare" class="page-title-icon"></i>
+            </div>
+            <div class="page-title">
+                <h2>لوحة تحكم المشروع</h2>
+                <p>إدارة وتتبع مسار العمل، المهام، وأفكار المحتوى الخاصة بحملتك التسويقية بفاعلية واحترافية.</p>
+            </div>
+            
+        </div>
+
+        <!-- DAILY POST: First Section -->
+         
+        <div class="dashboard-grid">
+		          <!-- Daily Post Widget -->
+            <div class="post-widget animate-in delay-3">
+                <div class="widget-header">
+                    <h3 class="section-title">
+                        <i data-lucide="pen-tool"></i>
+                        منشور اليوم
+                    </h3>
+                    <span class="badge badge-primary" id="dateBadge">14 مايو 2026</span>
+                </div>
+
+                <div class="media-display" id="mediaDisplay">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80" alt="تجربة تطبيق 360">
+                    <div class="media-overlay">
+                        <button class="btn-media-action download" onclick="downloadMedia()">
+                            <i data-lucide="download"></i>
+                           تنزيل
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label"><i data-lucide="heading"></i>عنوان المنشور</label>
+                    <input type="text" class="form-input" id="postTitle" value="اكتشف قوة إدارة الشحن مع تطبيق 360!">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label"><i data-lucide="align-right"></i>نص المنشور (الكابشن)</label>
+                    <textarea class="form-input" id="postCaption" style="overflow: hidden; resize: none;" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">تتبع لحظي، تحكم مالي ذكي، وتجربة مستخدم لا مثيل لها.
+
+انضم إلى آلاف العملاء الذين يثقون في تطبيق 360 لإدارة شحناتهم بكفاءة.
+
+جرب الآن: tawteen360.sa
+#تطبيق360 #توطين #إدارة_الشحن</textarea>
+                    <div class="caption-actions">
+                        <button class="btn-ai-magic" onclick="enhanceCaption()" title="تحسين بواسطة الذكاء الاصطناعي">
+                            <i data-lucide="wand-2"></i>
+                            تحسين بالذكاء الاصطناعي
+                        </button>
+                        <button class="btn-copy" onclick="copyCaption()">
+                            <i data-lucide="copy"></i>
+                          نسخ المنشور
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label"><i data-lucide="share-2"></i>المنصات المستهدفة<br>
+					<span class="label-span"> (حدد المنصات التي تم النشر عليها)</span>☑</label>
+                    <div class="platforms-grid" id="platformsGrid"></div>
+                </div>
+            </div>
+        
+            <!-- Calendar -->
+            <div class="calendar-widget animate-in delay-2">
+                <div class="widget-header-row">
+                    <h3 class="section-title">
+                        <i data-lucide="calendar"></i>
+                        قائمة المنشورات
+                    </h3>
+                    <div class="view-toggle">
+                        <input type="radio" name="viewMode" id="calendarView" checked onchange="toggleView('calendar')">
+                        <label for="calendarView">
+                            <i data-lucide="calendar-days" style="width: 14px; height: 14px;"></i>
+                            تقويم
+                        </label>
+                        <input type="radio" name="viewMode" id="listView" onchange="toggleView('list')">
+                        <label for="listView">
+                            <i data-lucide="list" style="width: 14px; height: 14px;"></i>
+                            قائمة
+                        </label>
+                    </div>
+                </div>
+
+                <div id="calendarViewContainer">
+                    <div class="calendar-header">
+                        <div class="month-year" id="monthYear">مايو 2026</div>
+                        <div class="calendar-nav">
+                            <button class="cal-btn" onclick="changeMonth(-1)">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="cal-btn" onclick="changeMonth(1)">
+                                <i data-lucide="chevron-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="weekdays">
+                        <div class="weekday">الأحد</div>
+                        <div class="weekday">الإثنين</div>
+                        <div class="weekday">الثلاثاء</div>
+                        <div class="weekday">الأربعاء</div>
+                        <div class="weekday">الخميس</div>
+                        <div class="weekday">الجمعة</div>
+                        <div class="weekday">السبت</div>
+                    </div>
+                    <div class="days-grid" id="daysGrid"></div>
+                    
+                    <!-- Events Section -->
+                    <div class="events-section">
+                        <div class="events-header">
+                            <h4><i data-lucide="star"></i>المناسبات العالمية والأعياد</h4>
+                            <button class="btn-add-event" onclick="openAddEventModal()">
+                               
+                               إضافة مناسبة
+							    <i data-lucide="plus"></i>
+                            </button>
+                        </div>
+                        <div class="events-list" id="eventsList"></div>
+                    </div>
+                </div>
+
+                <!-- List View Section -->
+                <div id="listViewContainer" style="display: none; padding-top: 20px;">
+                    <div class="posts-list-wrapper" id="postsListWrapper" style="display: flex; flex-direction: column; gap: 12px; max-height: 500px; overflow-y: auto; padding-right: 4px;">
+                        <!-- Post items will be injected here -->
+                    </div>
+                </div>
+            </div></div>
+
+        <!-- SOCIAL PERFORMANCE: Second Section -->
+        <h3 class="section-title2 animate-in delay-4">
+            <i data-lucide="line-chart"></i>
+            منصات التواصل الاجتماعي
+        </h3>
+        <div class="social-radar" id="socialRadar"></div>
+
+        <!-- Campaign Tasks and Ideas -->
+        <div class="ideas-lab-section animate-in delay-5">
+            <h3 class="section-title2">
+                <i data-lucide="clipboard-list"></i>
+                أفكار ومهام الحملة
+            </h3>
+            
+            <div class="campaign-split-container">
+                <!-- Part 1: Content Ideas Lab (Existing) -->
+                <div class="ideas-part">
+                    <h4 class="part-title">
+                        <i data-lucide="lightbulb"></i> مختبر أفكار المحتوى
+                    </h4>
+                    <div class="ideas-generator">
+                        <div class="form-group">
+                            <label class="form-label">عن ماذا تريد التحدث؟</label>
+                            <div class="generator-input-wrapper">
+                                <input type="text" id="ideaTopic" class="form-input" placeholder="مثال: ميزة جديدة، عرض خاص، نصيحة تقنية...">
+                                <button class="btn-generate" onclick="generateIdea()">
+                                    <i data-lucide="sparkles"></i>
+                                    توليد فكرة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ideas-grid" id="ideasGrid">
+                        <!-- Ideas will be injected here -->
+                    </div>
+                </div>
+
+                <!-- Part 2: To-Do List (New) -->
+                <div class="todo-part">
+                    <h4 class="part-title">
+                        <i data-lucide="check-square"></i> مهام الحملة
+                    </h4>
+                    
+                    <div class="todo-input-wrapper">
+                        <input type="text" id="newTaskInput" class="form-input" placeholder="اكتب مهمة جديدة ثم اضغط Enter..." onkeypress="if(event.key === 'Enter') addCampaignTask()">
+                        <button class="btn-add-task" onclick="addCampaignTask()">
+                            <i data-lucide="plus"></i>
+                        </button>
+                    </div>
+
+                    <div class="todo-filters">
+                        <button class="todo-filter-btn active" onclick="filterCampaignTasks('all')">الكل</button>
+                        <button class="todo-filter-btn" onclick="filterCampaignTasks('active')">النشطة</button>
+                        <button class="todo-filter-btn" onclick="filterCampaignTasks('completed')">المكتملة</button>
+                    </div>
+
+                    <ul class="todo-list" id="campaignTodoList">
+                        <!-- Example task 1 -->
+                        <li class="todo-item" data-status="active">
+                            <div class="todo-content">
+                                <input type="checkbox" class="todo-checkbox" onchange="toggleTaskStatus(this)">
+                                <span class="todo-text">تجهيز خطة المحتوى للأسبوع الأول</span>
+                            </div>
+                            <button class="btn-delete-task" onclick="deleteCampaignTask(this)"><i data-lucide="trash-2"></i></button>
+                        </li>
+                        <!-- Example task 2 -->
+                        <li class="todo-item completed" data-status="completed">
+                            <div class="todo-content">
+                                <input type="checkbox" class="todo-checkbox" checked onchange="toggleTaskStatus(this)">
+                                <span class="todo-text">تصميم بوسترات العيد</span>
+                            </div>
+                            <button class="btn-delete-task" onclick="deleteCampaignTask(this)"><i data-lucide="trash-2"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Vault -->
+        <div class="vault-section animate-in delay-5">
+            <h3 class="section-title2">
+                <i data-lucide="folder-open"></i>
+               مخزن المحتوى و الوسائط
+            </h3>
+            <div class="vault-grid" id="vaultGrid"></div>
+        </div>
+
+ 
+        </div>
+    </main>
+</div>
+
+<!-- Add Event Modal -->
+<div id="eventModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+    <div style="background: var(--surface); padding: 24px; border-radius: var(--radius); width: 90%; max-width: 400px; box-shadow: var(--shadow-lg);">
+        <h3 style="margin-bottom: 16px; font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="calendar-plus" style="color: var(--primary);"></i>
+            إضافة مناسبة جديدة
+        </h3>
+        <div class="form-group">
+            <label class="form-label">اسم المناسبة</label>
+            <input type="text" class="form-input" id="eventName" placeholder="مثال: عيد الفطر">
+        </div>
+        <div class="form-group">
+            <label class="form-label">اليوم (رقم)</label>
+            <input type="number" class="form-input" id="eventDay" min="1" max="31" placeholder="مثال: 15">
+        </div>
+        <div class="form-group">
+            <label class="form-label">النوع</label>
+            <select class="form-input" id="eventType" style="cursor: pointer;">
+                <option value="holiday">عيد / مناسبة دينية</option>
+                <option value="global">مناسبة عالمية</option>
+                <option value="local">مناسبة محلية</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn-primary" onclick="saveEvent()" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: var(--radius-xs); font-family: 'Noto Sans Arabic'; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <i data-lucide="save"></i>
+                حفظ
+            </button>
+           <button onclick="closeEventModal()" style="flex: 1; padding: 10px; background: var(--bg); color: var(--text-secondary); border: 1px solid var(--border); border-radius: var(--radius-xs); font-family: 'Noto Sans Arabic'; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <i data-lucide="x"></i>
+                إلغاء
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Day Details Modal -->
+<div id="dayDetailsModal" class="day-modal-overlay">
+    <div class="day-modal-content">
+        <h3 class="day-modal-header">
+            <i data-lucide="calendar-check"></i>
+            تفاصيل يوم <span id="modalDayNumber"></span> مايو
+        </h3>
+        
+        <div id="modalEventContent" class="day-modal-event">
+            <!-- Event details injected here -->
+        </div>
+
+        <div id="modalPostContent" class="day-modal-post">
+            <!-- Post details injected here -->
+        </div>
+
+        <div class="day-modal-actions">
+            <button onclick="closeDayDetailsModal()" class="day-modal-btn">
+                <i data-lucide="check-circle"></i>
+                حسناً
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+    function addCampaignTask() {
+        const input = document.getElementById('newTaskInput');
+        const text = input.value.trim();
+        if(!text) return;
+        
+        const ul = document.getElementById('campaignTodoList');
+        const li = document.createElement('li');
+        li.className = 'todo-item animate-in';
+        li.setAttribute('data-status', 'active');
+        li.innerHTML = `
+            <div class="todo-content">
+                <input type="checkbox" class="todo-checkbox" onchange="toggleTaskStatus(this)">
+                <span class="todo-text">${text}</span>
+            </div>
+            <button class="btn-delete-task" onclick="deleteCampaignTask(this)"><i data-lucide="trash-2"></i></button>
+        `;
+        ul.prepend(li);
+        input.value = '';
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleTaskStatus(checkbox) {
+        const li = checkbox.closest('.todo-item');
+        if(checkbox.checked) {
+            li.classList.add('completed');
+            li.setAttribute('data-status', 'completed');
+        } else {
+            li.classList.remove('completed');
+            li.setAttribute('data-status', 'active');
+        }
+    }
+
+    function deleteCampaignTask(btn) {
+        const li = btn.closest('.todo-item');
+        li.remove();
+    }
+
+    function filterCampaignTasks(filterType) {
+        const buttons = document.querySelectorAll('.todo-filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        const tasks = document.querySelectorAll('.todo-item');
+        tasks.forEach(task => {
+            const status = task.getAttribute('data-status');
+            if(filterType === 'all') {
+                task.style.display = 'flex';
+            } else if (filterType === status) {
+                task.style.display = 'flex';
+            } else {
+                task.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+<script type="module" src="js/app.js"></script>
+<script src="lucide.min.js"></script>
+
+</body>
+</html>
