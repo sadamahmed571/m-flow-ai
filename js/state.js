@@ -165,6 +165,14 @@ if (!localStorage.getItem('customEvents')) {
     localStorage.setItem('customEvents', JSON.stringify(initialCustomEvents));
 }
 
+if (!localStorage.getItem('customPosts')) {
+    const initialCustomPosts = {
+        5: { title: "إعلان عن ميزة التتبع", caption: "تتبع شحنتك لحظة بلحظة مع تطبيقنا المحدث. يمكنك الآن متابعة سائقك بكل سهولة عبر النظام المباشر.", mediaSerial: "vid-202", textSerial: "tex-305", day: 5 },
+        15: { title: "عرض خاص لعملاء المتجر", caption: "استفد من خصم 20% على شحناتك في نهاية الأسبوع. استخدم الكود WEEKEND20 عند الدفع.", mediaSerial: "img-106", textSerial: "tex-306", day: 15 }
+    };
+    localStorage.setItem('customPosts', JSON.stringify(initialCustomPosts));
+}
+
 const DEFAULT_COUNTERS = { img: 105, vid: 201, tex: 304 };
 export let currentCounters = JSON.parse(localStorage.getItem('vaultCounters') || JSON.stringify(DEFAULT_COUNTERS));
 

@@ -66,7 +66,45 @@ export function renderSocialRadar() {
         </div>
     `).join('');
 
-    container.innerHTML = summaryHTML + cardsHTML;
+    const addPlatformHTML = `
+        <div class="social-card add-platform-card animate-in delay-5" style="border: 2px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; min-height: 220px; background: var(--surface);" onclick="toggleAddPlatformForm()">
+            <div id="addPlatformBtn" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--bg); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: 0.3s;">
+                    <i data-lucide="plus" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h4 style="color: var(--text-secondary); font-weight: 700; font-size: 16px;">إضافة منصة جديدة</h4>
+            </div>
+            
+            <div id="addPlatformForm" style="display: none; width: 100%; text-align: right; cursor: default;" onclick="event.stopPropagation()">
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" style="font-size: 12px;">اسم المنصة</label>
+                    <input type="text" class="form-input" id="newPlatformName" list="platformSuggestions" placeholder="مثال: Snapchat, Pinterest..." style="padding: 8px; font-size: 13px;">
+                    <datalist id="platformSuggestions">
+                        <option value="Snapchat">
+                        <option value="Pinterest">
+                        <option value="LinkedIn">
+                        <option value="Telegram">
+                        <option value="Reddit">
+                        <option value="Discord">
+                        <option value="Threads">
+                    </datalist>
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" style="font-size: 12px;">رابط الحساب</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="url" class="form-input" id="newPlatformUrl" placeholder="https://..." oninput="updatePlatformPreview(this.value)" style="direction: ltr; text-align: left; padding: 8px; font-size: 13px;">
+                        <img id="newPlatformIconPreview" src="" style="width: 30px; height: 30px; border-radius: 4px; display: none; object-fit: contain; background: white; padding: 2px; border: 1px solid var(--border);">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 15px;">
+                    <button class="btn-primary" onclick="addNewPlatform(event)" style="flex: 1; padding: 8px; background: var(--primary); color: white; border: none; border-radius: var(--radius-xs); font-weight: 700; font-size: 13px; cursor: pointer;">إضافة</button>
+                    <button onclick="toggleAddPlatformForm(event, false)" style="flex: 1; padding: 8px; background: var(--bg); color: var(--text-secondary); border: 1px solid var(--border); border-radius: var(--radius-xs); font-weight: 700; font-size: 13px; cursor: pointer;">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = summaryHTML + cardsHTML + addPlatformHTML;
     if (window.lucide) lucide.createIcons();
 
     setTimeout(() => {
@@ -107,6 +145,89 @@ export function toggleLinkInput(pid) {
         btn.innerHTML = '<i data-lucide=\"save\"></i> حفظ';
     }
     if (window.lucide) lucide.createIcons();
+}
+
+export function toggleAddPlatformForm(event = null, show = true) {
+    if (event) event.stopPropagation();
+    const btn = document.getElementById('addPlatformBtn');
+    const form = document.getElementById('addPlatformForm');
+    const card = btn.closest('.add-platform-card');
+    
+    if (show && form.style.display === 'none') {
+        btn.style.display = 'none';
+        form.style.display = 'block';
+        card.style.border = '1px solid var(--border)';
+        card.style.cursor = 'default';
+    } else if (!show) {
+        btn.style.display = 'flex';
+        form.style.display = 'none';
+        card.style.border = '2px dashed var(--border)';
+        card.style.cursor = 'pointer';
+        document.getElementById('newPlatformName').value = '';
+        document.getElementById('newPlatformUrl').value = '';
+        document.getElementById('newPlatformIconPreview').style.display = 'none';
+    }
+}
+
+export function updatePlatformPreview(url) {
+    const preview = document.getElementById('newPlatformIconPreview');
+    if (!url || !url.startsWith('http')) {
+        preview.style.display = 'none';
+        return;
+    }
+    try {
+        const domain = new URL(url).hostname;
+        preview.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+        preview.style.display = 'block';
+    } catch (e) {
+        preview.style.display = 'none';
+    }
+}
+
+export function addNewPlatform(event) {
+    event.stopPropagation();
+    const name = document.getElementById('newPlatformName').value.trim();
+    const url = document.getElementById('newPlatformUrl').value.trim();
+    
+    if (!name || !url) {
+        showToast('يرجى إدخال اسم المنصة ورابط الحساب', 'error');
+        return;
+    }
+    
+    let id = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if(!id) id = 'plat_' + Math.floor(Math.random()*1000);
+
+    if (platformsData.find(p => p.id === id)) {
+        showToast('هذه المنصة موجودة مسبقاً', 'error');
+        return;
+    }
+    
+    let domain = '';
+    try {
+        domain = new URL(url).hostname;
+    } catch(e) {}
+    
+    const imgIcon = domain ? `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" style="width: 32px; height: 32px; object-fit: contain;">` : '<i data-lucide="globe"></i>';
+    svgs[id] = imgIcon;
+    
+    const newPlatform = {
+        id: id,
+        name: name,
+        icon: '',
+        color: '#1e3a5f',
+        colorLight: '#2c5282',
+        bg: 'rgba(30,58,95,0.08)',
+        progress: 0,
+        total: 10,
+        published: 0,
+        unpublished: 10,
+        link: url
+    };
+    
+    platformsData.push(newPlatform);
+    showToast('تمت إضافة المنصة بنجاح!', 'success');
+    renderSocialRadar();
+    renderPlatforms();
 }
 
 export function updatePlatformProgress(platformId, increment = 5) {

@@ -1,4 +1,4 @@
-import { renderSocialRadar, renderPlatforms, toggleLinkInput, handlePlatformCheck } from './social.js';
+import { renderSocialRadar, renderPlatforms, toggleLinkInput, handlePlatformCheck, toggleAddPlatformForm, updatePlatformPreview, addNewPlatform } from './social.js';
 import { renderCalendar, changeMonth, toggleView, openAddEventModal, closeEventModal, saveEvent, deleteEvent, selectDay, closeDayDetailsModal, renderEvents } from './calendar.js';
 import { renderVault } from './vault.js';
 import { showToast, createConfetti } from './utils.js';
@@ -35,6 +35,9 @@ window.selectDay = selectDay;
 window.closeDayDetailsModal = closeDayDetailsModal;
 window.toggleLinkInput = toggleLinkInput;
 window.handlePlatformCheck = handlePlatformCheck;
+window.toggleAddPlatformForm = toggleAddPlatformForm;
+window.updatePlatformPreview = updatePlatformPreview;
+window.addNewPlatform = addNewPlatform;
 window.copyCaption = () => {
     const caption = document.getElementById('postCaption');
     caption.select();
